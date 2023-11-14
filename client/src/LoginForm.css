@@ -1,0 +1,27 @@
+.login-form {
+    border: 1px solid #ccc;
+    box-shadow: 0 0 2px #ccc;
+  }
+  
+  .login-form .card-header {
+    text-align: center;
+  }
+  
+  .login-form .card-body {
+    padding: 20px;
+  }
+  
+  .login-form .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .login-form .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0069d9;
+  }
+  
+  .login-form .text-danger {
+    font-size: 0.8rem;
+  }
+  

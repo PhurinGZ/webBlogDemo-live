@@ -1,0 +1,33 @@
+.register-form {
+  border: 1px solid #ccc;
+  box-shadow: 0 0 2px #ccc;
+}
+
+.register-form .card-header {
+  text-align: center;
+}
+
+.register-form .card-body {
+  padding: 20px;
+}
+
+.register-form .btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.register-form .btn-primary:hover {
+  background-color: #0069d9;
+  border-color: #0069d9;
+}
+
+.register-form .text-danger {
+  font-size: 0.8rem;
+}
+.register-form .form-group {
+  margin-bottom: 10px;
+}
+
+.register-form .btn-primary {
+  margin-top: 20px;
+}
