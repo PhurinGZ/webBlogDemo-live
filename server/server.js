@@ -42,6 +42,7 @@ const verifyUser = (req, res, next) => {
         return res.json("Token is wrong");
       } else {
         req.email = decoded.email
+        req.name = decoded.name
       }
       next();
     });
