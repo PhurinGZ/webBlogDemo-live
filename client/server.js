@@ -26,16 +26,15 @@ app.use(express.static("Public"));
 dotenv.config();
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect("mongodb://localhost:27017/my-database", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // Remove the following options:
-  // useFindAndModify: false,
-  // useCreateIndex: true,
-})
+mongoose
+  .connect("mongodb://localhost:27017/my-database", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
   .then(() => console.log("Connected!!"))
   .catch((error) => console.error("MongoDB connection error:", error));
-
 
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
