@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userContext } from "../App";
+import CommentSection from "../components/postComment";
 
 const Post = () => {
   const { id } = useParams();
@@ -19,6 +20,7 @@ const Post = () => {
   if (!post) {
     return <div>Loading...</div>;
   }
+
 
   const handleDelete = () => {
     axios
@@ -64,18 +66,19 @@ const Post = () => {
                 >
                   Delete
                 </button>
-
-                
               </div>
             )}
             {/* Back button */}
             <button
-                  onClick={() => navigate("/")}
-                  className="btn btn-outline-primary"
-                  style={{ color: "black" }}
-                >
-                  Back
-                </button>
+              onClick={() => navigate("/")}
+              className="btn btn-outline-primary"
+              style={{ color: "black" }}
+            >
+              Back
+            </button>
+            <hr />
+
+            <CommentSection post={post} />
           </div>
         </div>
       </div>
