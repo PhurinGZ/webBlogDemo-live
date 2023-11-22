@@ -5,7 +5,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 10000",
     "predeploy": "npm run build",
     "build": "vite build",
     "deploy": "gh-pages -d dev",
