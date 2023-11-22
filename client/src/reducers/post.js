@@ -1,19 +1,15 @@
+// reducers/post.js
 import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, COMMENT } from '../constants/actionType';
 
-export default (posts = [], action) => {
+const postReducer = (posts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
-      return action.payload;
+      // Assuming action.payload contains the array of posts
+      return action.payload.posts; // Make sure the property name aligns with your API response
     case LIKE:
       return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
     case COMMENT:
-      return {
-        ...state, // Fix the typo here
-        posts: posts.map((post) => {
-          if (post._id === action.payload._id) return action.payload;
-          return post;
-        }),
-      };
+      return posts.map((post) => (post._id === action.payload._id ? action.payload : post));
     case CREATE:
       return [...posts, action.payload];
     case UPDATE:
@@ -24,3 +20,5 @@ export default (posts = [], action) => {
       return posts;
   }
 };
+
+export default postReducer;

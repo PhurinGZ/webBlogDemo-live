@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import '../css/LoginForm.css'
+// import '../css/LoginForm.css'
 
 function LoginForm() {
   const [email, setEmail] = useState("");

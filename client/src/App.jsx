@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import "./css/App.css";
+// import "./css/App.css";
 import axios from "axios";
 import CreatePost from "./page/createPost";
 import LoginForm from "./components/LoginForm";
@@ -9,6 +9,8 @@ import Navbar from "./components/navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Post from "./page/post";
 import EditPost from "./page/EditPost";
+import UserProfile from "./page/userProfile";
+
 
 export const userContext = createContext();
 
@@ -39,6 +41,7 @@ function App() {
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/post/:id" element={<Post />} />
           <Route path="/editpost/:id" element={<EditPost />} />
+          <Route path="/profile" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </userContext.Provider>

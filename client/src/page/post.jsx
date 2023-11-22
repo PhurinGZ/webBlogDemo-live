@@ -3,86 +3,102 @@ import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 import CommentSection from "../components/postComment";
+import {
+  Card,
+  CardContent,
+  CardActions,
+  CardHeader,
+  Button,
+  Typography,
+  Avatar,
+  Grid,
+  IconButton,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState();
   const user = useContext(userContext);
-  const navigate = useNavigate(); // useNavigate hook for programmatic navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .get(`http://localhost:5000/getPostByid/${id}`)
       .then((result) => setPost(result.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [id]);
 
   if (!post) {
     return <div>Loading...</div>;
   }
 
-
   const handleDelete = () => {
     axios
       .delete(`http://localhost:5000/deletepost/${id}`)
-      .then(() => navigate("/")) // Navigate back to the home page after deletion
+      .then(() => navigate("/"))
       .catch((err) => console.log(err));
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="card shadow-lg mb-4">
+    <Grid container justifyContent="center" className="mt-5">
+      <Grid item xs={12} md={8}>
+        <Card style={{ padding: "30px" }}>
+          <CardHeader
+            title={post.title}
+            subheader={`Author: ${post.name}`}
+            avatar={
+              <Avatar src={`http://localhost:5000/Images/${post.file}`} />
+            }
+          />
+          {post.file ? (
             <img
               src={`http://localhost:5000/Images/${post.file}`}
               alt={post.title}
               className="card-img-top rounded-top"
               style={{ width: "100%" }}
             />
-            <div className="card-body">
-              <h2 className="card-title text-center">{post.title}</h2>
-              <p className="card-text text-justify">{post.description}</p>
-              <p className="card-text text-center">
-                Author: <span className="font-weight-bold">{post.name}</span>
-              </p>
-            </div>
+          ) : (
+            <></>
+          )}
 
-            {user.email === post.email && (
-              <div className="card-footer d-flex justify-content-center">
-                <button className="btn btn-outline-secondary me-2">
-                  <Link
-                    to={`/editpost/${post._id}`}
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    Edit
-                  </Link>
-                </button>
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {post.description}
+            </Typography>
+          </CardContent>
 
-                <button
-                  onClick={handleDelete}
-                  className="btn btn-outline-danger"
-                  style={{ color: "black" }}
-                >
-                  Delete
-                </button>
-              </div>
-            )}
-            {/* Back button */}
-            <button
+          {user.email === post.email && (
+            <CardActions>
+              <IconButton
+                component={Link}
+                to={`/editpost/${post._id}`}
+                color="primary"
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={handleDelete} color="error">
+                <DeleteIcon />
+              </IconButton>
+            </CardActions>
+          )}
+
+          <CardActions>
+            <Button
               onClick={() => navigate("/")}
-              className="btn btn-outline-primary"
-              style={{ color: "black" }}
+              variant="outlined"
+              color="primary"
             >
               Back
-            </button>
-            <hr />
+            </Button>
+          </CardActions>
+          <hr />
 
-            <CommentSection post={post} />
-          </div>
-        </div>
-      </div>
-    </div>
+          <CommentSection post={post} />
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 

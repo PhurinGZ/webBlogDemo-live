@@ -1,10 +1,9 @@
-// Home.jsx
+// Home.js
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/home.css";
-import ScrollToTop from "../components/ScrollToTop";
+import React, { useEffect, useState } from "react";
+import { Container, Grid } from "@mui/material";
+import ScrollToTopButton from "../components/ScrollToTop";
 import PostCard from "../components/PostCard";
-import {useEffect,useState} from "react"
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -13,36 +12,16 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/getPosts");
-        setPosts(response.data);
+        setPosts(response.data.reverse());
       } catch (error) {
-        console.log("Error:", error);
+        console.error("Error fetching posts:", error);
       }
     };
 
-    fetchData(); // Initial data fetch
-
-    const handleScroll = () => {
-      const scrollButton = document.querySelector(".btn-scroll-top");
-      if (scrollButton) {
-        // Update the display property based on the scroll position
-        scrollButton.style.display = window.scrollY > 200 ? "block" : "none";
-      }
-
-      // Save the scroll position to sessionStorage
-      sessionStorage.setItem("scrollPosition", window.scrollY.toString());
-    };
-
-    // Attach event listener for scroll
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup event listener on component unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []); // Empty dependency array to ensure the effect runs only once
+    fetchData();
+  }, []);
 
   useEffect(() => {
-    // Retrieve the scroll position from sessionStorage
     const scrollPosition = sessionStorage.getItem("scrollPosition");
 
     if (scrollPosition) {
@@ -51,17 +30,24 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h1>Blog Posts</h1>
-      <div className="row justify-content-center">
-        <div className="col-6">
+    <React.Fragment>
+      <Container>
+        <Grid container spacing={3}>
           {posts.map((post) => (
-            <PostCard key={post._id} post={post} />
+            <Grid
+              item
+              key={post._id}
+              xs={12}
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              <PostCard post={post} />
+            </Grid>
           ))}
-        </div>
-      </div>
-      <ScrollToTop />
-    </div>
+        </Grid>
+      </Container>
+
+      <ScrollToTopButton />
+    </React.Fragment>
   );
 };
 
