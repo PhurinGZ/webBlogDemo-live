@@ -10,6 +10,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
+import userRouter from "./routes/user.js"
 import postRoutes from "./routes/post.js";
 import User from "./model/userModel.js";
 import postModel from "./model/postModel.js";
@@ -207,6 +208,7 @@ app.delete("/deletepost/:id", async (req, res) => {
 });
 
 app.use("/posts", postRoutes);
+app.use("/users", userRouter)
 
 app.get("/logout", (req, res) => {
   res.clearCookie("token");

@@ -1,14 +1,16 @@
 // UserProfile.jsx
-import { useState, useEffect, useContext } from 'react';
-import { Avatar, Typography, Paper, Button } from '@mui/material';
+import React, { useState, useEffect, useContext } from 'react';
+import { Avatar, Typography, Paper, Button, Modal } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { profile } from '../actions/user';
 import { userContext } from '../App';
+import EditProfile from './editProfile';
 
 const UserProfile = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [userProfile, setUserProfile] = useState({});
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   const user = useContext(userContext);
   const dispatch = useDispatch();
@@ -21,16 +23,20 @@ const UserProfile = () => {
 
         if (!user) {
           console.error("User context not available");
+          setLoading(false);
           return;
         }
 
-        console.log("Sending email:", user.email);
+        if (!user.email) {
+          console.error("User email is undefined");
+          setLoading(false);
+          return;
+        }
 
         const profileResult = await dispatch(profile(user.email));
 
         if (!profileResult) {
-          console.error("Invalid profile result:", profileResult);
-          setError("Invalid profile result");
+          console.warn("No profile data found");
           setLoading(false);
           return;
         }
@@ -38,18 +44,21 @@ const UserProfile = () => {
         setUserProfile(profileResult);
         setLoading(false);
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-          console.log("User not found");
-        } else {
-          console.error("Error fetching user profile:", error);
-          setError("Error fetching user profile");
-        }
+        setError(error.message);
         setLoading(false);
       }
     };
 
     fetchUserProfile();
   }, [user, dispatch]);
+
+  const handleEditProfileClick = () => {
+    setEditModalOpen(true);
+  };
+
+  const handleEditModalClose = () => {
+    setEditModalOpen(false);
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -60,22 +69,43 @@ const UserProfile = () => {
   }
 
   return (
-    <Paper elevation={3} style={{ padding: 20, maxWidth: 400, margin: 'auto', marginTop: 50 }}>
-      <Avatar
-        alt={userProfile.name}
-        src={userProfile.avatarUrl}
-        sx={{ width: 100, height: 100, margin: 'auto' }}
-      />
-      <Typography variant="h5" align="center" gutterBottom>
-        {userProfile.name}
-      </Typography>
-      <Typography variant="body1" align="center" paragraph>
-        {userProfile.email}
-      </Typography>
-      <Button variant="contained" color="primary" fullWidth>
-        Edit Profile
-      </Button>
-    </Paper>
+    <>
+      <Paper elevation={3} style={{ padding: 20, maxWidth: 400, margin: 'auto', marginTop: 50 }}>
+        <Avatar
+          alt={userProfile.name}
+          src={userProfile.avatarUrl}
+          sx={{ width: 100, height: 100, margin: 'auto' }}
+        />
+        <Typography variant="h5" align="center" gutterBottom>
+          {userProfile.name}
+        </Typography>
+        <Typography variant="body1" align="center" paragraph>
+          {userProfile.email}
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleEditProfileClick}
+        >
+          Edit Profile
+        </Button>
+      </Paper>
+
+      <Modal
+        open={isEditModalOpen}
+        onClose={handleEditModalClose}
+        aria-labelledby="edit-profile-modal"
+        aria-describedby="edit-profile-modal-description"
+      >
+        {/* Pass initial values and onClose function to EditProfile */}
+        <EditProfile
+          initialName={userProfile.name}
+          initialAvatarUrl={userProfile.avatarUrl}
+          onClose={handleEditModalClose}
+        />
+      </Modal>
+    </>
   );
 };
 

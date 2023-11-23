@@ -1,10 +1,16 @@
 // api/index.js
 import axios from "axios";
 
-const url = "http://localhost:5000/posts";
+const urlPost = "http://localhost:5000/posts";
+const urlUser = "http://localhost:5000/users";
 
+// post api
 export const comment = (value, id) =>
-  axios.patch(`${url}/${id}/commentPost`, { value });
+  axios.patch(`${urlPost}/${id}/commentPost`, { value });
 
+// user api
 export const profile = (email) =>
-  axios.get(`${url}/profile?email=${email}`);
+  axios.get(`${urlUser}/profile?email=${email}`);
+
+export const editProfile = (userData) =>
+  axios.put(`${urlUser}/editProfile`, userData);

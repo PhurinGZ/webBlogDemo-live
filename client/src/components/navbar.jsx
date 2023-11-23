@@ -2,7 +2,7 @@
 import React, { useContext, useState, useEffect } from "react";
 // import "../css/navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { userContext } from "../App";
 import axios from "axios";
 import AppBar from "@mui/material/AppBar";
@@ -23,6 +23,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import Settings from "@mui/icons-material/Settings";
 import PersonAdd from "@mui/icons-material/PersonAdd";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const navigate = useNavigate();
@@ -72,6 +73,15 @@ function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -136,9 +146,35 @@ function Navbar() {
                 </Button>
               </MenuItem>
               <MenuItem onClick={handleCloseNavMenu}>
-                <Button style={{ textAlign: "center" }} href="#">
+                <Button
+                  style={{ textAlign: "center" }}
+                  id="basic-button"
+                  aria-controls={open ? "basic-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? "true" : undefined}
+                  onClick={handleClick}
+                >
                   Contract
                 </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    "aria-labelledby": "basic-button",
+                  }}
+                >
+                  <MenuItem component={Link} onClick={handleClose}>
+                    Profile
+                  </MenuItem>
+                  <MenuItem component={Link} onClick={handleClose}>
+                    My account
+                  </MenuItem>
+                  <MenuItem component={Link} onClick={handleClose}>
+                    Logout
+                  </MenuItem>
+                </Menu>
               </MenuItem>
             </Menu>
           </Box>
@@ -181,12 +217,39 @@ function Navbar() {
               <></>
             )}
             <Button
-              onClick={handleCloseNavMenu}
               sx={{ my: 2, color: "white", display: "block" }}
-              href="#"
+              style={{ textAlign: "center" }}
+              id="basic-button"
+              aria-controls={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+              onClick={handleClick}
             >
               Contract
             </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem
+                onClick={handleClose}
+                component={Link}
+                to="https://github.com/PhurinGZ"
+              >
+                Github
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                I just want to put it in.
+              </MenuItem>
+              <MenuItem onClick={handleClose}>
+                I just want to put it in.
+              </MenuItem>
+            </Menu>
           </Box>
           {user.email ? (
             <Box sx={{ flexGrow: 0 }}>
@@ -211,38 +274,40 @@ function Navbar() {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Avatar />
-                  <Button style={{ textAlign: "center" }} href="/profile">
-                    Profile
-                  </Button>
+                <MenuItem
+                  component={Link}
+                  onClick={handleCloseUserMenu}
+                  to="/profile"
+                  style={{ textAlign: "center" }}
+                >
+                  <Avatar style={{ marginRight: "8px" }} />
+                  Profile
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Avatar /> My account
+                <MenuItem component={Link} onClick={handleCloseUserMenu}>
+                  <Avatar style={{ marginRight: "8px" }} /> My account
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem component={Link} onClick={handleCloseUserMenu}>
                   <ListItemIcon>
                     <PersonAdd fontSize="small" />
                   </ListItemIcon>
                   Add another account
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem component={Link} onClick={handleCloseUserMenu}>
                   <ListItemIcon>
                     <Settings fontSize="small" />
                   </ListItemIcon>
                   Settings
                 </MenuItem>
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem
+                  component={Link}
+                  onClick={handleLogout}
+                  style={{ color: "red", textAlign: "center" }}
+                >
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <Button
-                    onClick={handleLogout}
-                    style={{ color: "red", textAlign: "center" }}
-                  >
-                    Logout
-                  </Button>
+                  Logout
                 </MenuItem>
               </Menu>
             </Box>

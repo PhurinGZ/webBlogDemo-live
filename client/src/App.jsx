@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Post from "./page/post";
 import EditPost from "./page/EditPost";
 import UserProfile from "./page/userProfile";
+import EditProfile from "./page/editProfile";
 
 
 export const userContext = createContext();
@@ -22,7 +23,7 @@ function App() {
       .get("http://localhost:5000/")
       .then((user) => {
         setUser(user.data);
-        console.log(user.data);
+        // console.log(user.data);
       })
       .catch((err) => {
         console.log(err);
@@ -42,6 +43,7 @@ function App() {
           <Route path="/post/:id" element={<Post />} />
           <Route path="/editpost/:id" element={<EditPost />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
         </Routes>
       </BrowserRouter>
     </userContext.Provider>
