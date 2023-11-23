@@ -11,16 +11,24 @@ function LoginForm() {
 
   axios.defaults.withCredentials = true;
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+
     try {
       const response = await axios.post("http://localhost:5000/login", {
         email,
         password,
       });
+
       if (response.data.success) {
         window.location.href = "/";
       } else {
-        setMessage(response.data.message);
+        // Check if the error message is specifically about the user not existing
+        if (response.data.message === "Invalid credentials") {
+          setMessage("User not found. Please check your email or register.");
+        } else {
+          setMessage(response.data.message);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -38,7 +46,9 @@ function LoginForm() {
             <div className="card-body">
               <form>
                 <div className="mb-3">
-                  <label htmlFor="email" className="form-label">Email</label>
+                  <label htmlFor="email" className="form-label">
+                    Email
+                  </label>
                   <input
                     type="text"
                     className="form-control"
@@ -49,7 +59,9 @@ function LoginForm() {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="password" className="form-label">Password</label>
+                  <label htmlFor="password" className="form-label">
+                    Password
+                  </label>
                   <input
                     type="password"
                     className="form-control"
@@ -59,7 +71,12 @@ function LoginForm() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
-                <button className="btn btn-primary btn-block" onClick={handleLogin}>Login</button>
+                <button
+                  className="btn btn-primary btn-block"
+                  onClick={handleLogin}
+                >
+                  Login
+                </button>
                 {message && <p className="text-danger mt-3">{message}</p>}
               </form>
             </div>

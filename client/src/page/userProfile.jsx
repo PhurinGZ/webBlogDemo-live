@@ -24,18 +24,18 @@ const UserProfile = () => {
           return;
         }
 
-        const response = await dispatch(profile(user.email));
+        console.log("Sending email:", user.email);
 
-        console.log(user.email)
+        const profileResult = await dispatch(profile(user.email));
 
-        if (!response) {
-          console.error("Invalid response:", response);
-          setError("Invalid response");
+        if (!profileResult) {
+          console.error("Invalid profile result:", profileResult);
+          setError("Invalid profile result");
           setLoading(false);
           return;
         }
 
-        setUserProfile(response.profile); // Update the state with the fetched user data
+        setUserProfile(profileResult);
         setLoading(false);
       } catch (error) {
         if (error.response && error.response.status === 404) {
@@ -63,7 +63,7 @@ const UserProfile = () => {
     <Paper elevation={3} style={{ padding: 20, maxWidth: 400, margin: 'auto', marginTop: 50 }}>
       <Avatar
         alt={userProfile.name}
-        src={userProfile.avatarUrl} // Assuming 'avatarUrl' is a property in your profile data
+        src={userProfile.avatarUrl}
         sx={{ width: 100, height: 100, margin: 'auto' }}
       />
       <Typography variant="h5" align="center" gutterBottom>

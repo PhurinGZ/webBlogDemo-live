@@ -1,9 +1,11 @@
-// routes/user,js
+// routes/user.js
+
 import express from 'express';
-import {userProfile} from '../controller/user';
+import { userProfile } from '../controller/user';
 
 const router = express.Router();
 
-router.get('/profile', userProfile);
+router.get('/profile/:email', userProfile);
 
 export default router;
+

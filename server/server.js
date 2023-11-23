@@ -39,25 +39,22 @@ mongoose
   .then(() => console.log("Connected!!"))
   .catch((error) => console.error("MongoDB connection error:", error));
 
-  const verifyUser = (req, res, next) => {
-    const token = req.cookies.token;
-    if (!token) {
-      return res.json("The token was not available");
-    } else {
-      jwt.verify(token, "jwt-secret-key", (err, decoded) => {
-        if (err) {
-          return res.json("Token is wrong");
-        } else {
-          req.email = decoded.email;
-          req.name = decoded.name;
-        }
-        next();
-      });
-    }
-  };
-  
-  
-
+const verifyUser = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.json("The token was not available");
+  } else {
+    jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+      if (err) {
+        return res.json("Token is wrong");
+      } else {
+        req.email = decoded.email;
+        req.name = decoded.name;
+      }
+      next();
+    });
+  }
+};
 
 app.get("/", verifyUser, async (req, res) => {
   return res.json({ email: req.email, name: req.name });
@@ -92,13 +89,21 @@ app.post("/register", async (req, res) => {
     return res.status(400).json({ message: "Missing required fields" });
   }
 
-  const user = new User({
-    name: formData.name,
-    email: formData.email,
-    password: formData.password,
-  });
-
   try {
+    // Check if the email already exists in the database
+    const existingUser = await User.findOne({ email: formData.email });
+
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
+    }
+
+    // If the email doesn't exist, create a new user
+    const user = new User({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    });
+
     await user.save();
     return res.status(201).json({ message: "Registration successful" });
   } catch (error) {

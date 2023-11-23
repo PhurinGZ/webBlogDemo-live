@@ -10,6 +10,8 @@ const RegisterForm = () => {
     password: "",
   });
 
+  const [error, setError] = useState("");
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -31,9 +33,14 @@ const RegisterForm = () => {
         window.location.href = "/login";
       } else {
         // Display an error message
-        alert("Registration failed");
+        setError("Registration failed. Please check your information.");
       }
     } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("An error occurred during registration.");
+      }
       console.error("Error during registration:", error);
     }
   };
@@ -47,6 +54,7 @@ const RegisterForm = () => {
               <h3>Register</h3>
             </div>
             <div className="card-body">
+              {error && <div className="alert alert-danger">{error}</div>}
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Name

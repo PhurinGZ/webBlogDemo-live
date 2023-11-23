@@ -7,4 +7,4 @@ export const comment = (value, id) =>
   axios.patch(`${url}/${id}/commentPost`, { value });
 
 export const profile = (email) =>
-  axios.get(`${url}/profile`, { params: { email } });
+  axios.get(`${url}/profile?email=${email}`);
