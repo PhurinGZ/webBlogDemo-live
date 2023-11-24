@@ -1,6 +1,16 @@
 # Web Blog Demo
 
 This project is a simple web blog demo built with Node.js, React.js, MongoDB, and Express.
+homepage
+![Alt text](image.png)
+modal post
+![Alt text](image-1.png)
+Edit post
+![Alt text](image-2.png)
+profile
+![Alt text](image-3.png)
+Edit profile (add avatar not avaliable)
+![Alt text](image-4.png)
 
 ## Installation
 
