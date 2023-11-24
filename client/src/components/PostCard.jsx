@@ -1,5 +1,5 @@
 // PostCard.js
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Card,
   CardContent,
@@ -10,7 +10,8 @@ import {
   DialogContent,
   DialogActions,
   Button,
-  Grid,CardActions
+  Grid,
+  CardActions,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
 import defaultImage from "../assets/Default.png";
@@ -19,6 +20,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { userContext } from "../App";
+
+import "../css/PostCard.css"; // Import the CSS file
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -46,6 +50,7 @@ const PostCard = ({ post }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const user = useContext(userContext);
 
   const handleOpen = () => {
     setOpen(true);
@@ -118,8 +123,8 @@ const PostCard = ({ post }) => {
         </Card>
       </div>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogContent>
+      <Dialog open={open} onClose={handleClose} scroll="paper">
+        <DialogContent dividers>
           <Typography variant="h6">{post.title}</Typography>
           <Typography variant="subtitle1">Author: {post.name}</Typography>
           {post.file && (
@@ -132,20 +137,27 @@ const PostCard = ({ post }) => {
           )}
           <Typography variant="body2">{post.description}</Typography>
 
-          <CardActions>
-            <Button
-              component={Link}
-              to={`/editpost/${post._id}`}
-              color="primary"
-            >
-              <EditIcon />
-            </Button>
-            <Button onClick={handleDelete} color="error">
-              <DeleteIcon />
-            </Button>
-          </CardActions>
+          {user.email === post.email && (
+            <div>
+              <hr />
+
+              <CardActions style={{ padding: 0 }}>
+                <Button
+                  component={Link}
+                  to={`/editpost/${post._id}`}
+                  color="primary"
+                >
+                  <EditIcon />
+                </Button>
+                <Button onClick={handleDelete} color="error">
+                  <DeleteIcon />
+                </Button>
+              </CardActions>
+            </div>
+          )}
 
           <hr />
+
           <CommentSection post={post} />
         </DialogContent>
         <DialogActions>

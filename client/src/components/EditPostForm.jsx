@@ -1,6 +1,14 @@
 // EditPostForm.jsx
+import React from "react";
+import { Link } from "react-router-dom";
 
-const EditPostForm = ({ onSubmit, title, onTitleChange, description, onDescriptionChange }) => {
+const EditPostForm = ({
+  onSubmit,
+  title,
+  onTitleChange,
+  description,
+  onDescriptionChange,
+}) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="mb-3">
@@ -33,6 +41,9 @@ const EditPostForm = ({ onSubmit, title, onTitleChange, description, onDescripti
         <button type="submit" className="btn btn-primary">
           Update
         </button>
+        <Link to="/" className="btn btn-secondary ms-2">
+          Back
+        </Link>
       </div>
     </form>
   );
