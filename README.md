@@ -5,7 +5,7 @@ How to install
   4. now you can run 🏃
 
 This project use
-  1.node.js
-  2.react.js
-  3.mongodb
-  4.express
+  1. node.js
+  2. react.js
+  3. mongodb
+  4. express
