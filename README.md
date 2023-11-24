@@ -1,15 +1,36 @@
-How to install
-  1. create data base name "my-database"
-  ![image](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/5eaa07b5-9e26-4de6-a334-f21ccc966d5d)
-  you can chage data base in this 
-  ![image](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/603abc46-eb18-48d5-a9a0-9980e413a4c1)
+# Web Blog Demo
 
-  3. cd cliend and run command npm run dev
-  4. cd server and run command npm stat
-  5. now you can run 🏃
+This project is a simple web blog demo built with Node.js, React.js, MongoDB, and Express.
 
-This project use
-  1. node.js
-  2. react.js
-  3. mongodb
-  4. express
+## Installation
+
+1. **Create Database:**
+   - Create a MongoDB database named "my-database".
+
+     ![Create Database](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/5eaa07b5-9e26-4de6-a334-f21ccc966d5d)
+
+   - Customize the database name in `server.js`.
+
+     ![Change Database](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/603abc46-eb18-48d5-a9a0-9980e413a4c1)
+
+2. **Configure Server:**
+   - Open `server.js` and update the database name.
+
+3. **Run Client:**
+   - Navigate to the `client` directory.
+   - Run `npm run dev` to start the React.js development server.
+
+4. **Run Server:**
+   - Navigate to the `server` directory.
+   - Run `npm start` to start the Express server.
+
+5. **Ready to Run:**
+   - With both the client and server running, your web blog demo is ready! 🏃
+
+## Project Stack
+- Node.js
+- React.js
+- MongoDB
+- Express
+
+Feel free to explore and modify the project to suit your needs.
