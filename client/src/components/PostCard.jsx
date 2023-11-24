@@ -1,19 +1,28 @@
-// PostCard.jsx
-import { Link } from "react-router-dom";
+// PostCard.js
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
   CardMedia,
   Typography,
-  Grid,
   Avatar,
+  Dialog,
+  DialogContent,
+  DialogActions,
+  Button,
+  Grid,CardActions
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import defaultImage from "../assets/Default.png"
+import defaultImage from "../assets/Default.png";
+import CommentSection from "../components/postComment";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
-  grid:{
-    marginTop:"40px"
+  grid: {
+    marginTop: "40px",
   },
   card: {
     display: "flex",
@@ -21,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     maxWidth: 400,
     margin: "auto",
-    // boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.2)",
   },
   avatar: {
     width: theme.spacing(5),
@@ -36,10 +44,30 @@ const useStyles = makeStyles((theme) => ({
 
 const PostCard = ({ post }) => {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDelete = () => {
+    axios
+      .delete(`http://localhost:5000/deletepost/${post._id}`)
+      .then(() => {
+        handleClose();
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <Grid item xs={12} sm={6} md={4} className={classes.grid}>
-      <Link to={`/post/${post._id}`} style={{ textDecoration: "none" }}>
+      <div onClick={handleOpen} style={{ cursor: "pointer" }}>
         <Card className={classes.card}>
           <CardContent>
             <Grid container alignItems="center">
@@ -50,10 +78,7 @@ const PostCard = ({ post }) => {
                     className={classes.avatar}
                   />
                 ) : (
-                  <Avatar
-                    src={defaultImage}
-                    className={classes.avatar}
-                  />
+                  <Avatar src={defaultImage} className={classes.avatar} />
                 )}
               </Grid>
               <Grid item style={{ marginLeft: "10px" }}>
@@ -83,17 +108,52 @@ const PostCard = ({ post }) => {
             <></>
           )}
           <CardContent>
-            <Typography variant="h6" >
-              {post.title}
-            </Typography>
-            <Typography variant="body2"  >
+            <Typography variant="h6">{post.title}</Typography>
+            <Typography variant="body2">
               {post.description.length <= 100
                 ? post.description
                 : post.description.substr(0, 100) + "..."}
             </Typography>
           </CardContent>
         </Card>
-      </Link>
+      </div>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogContent>
+          <Typography variant="h6">{post.title}</Typography>
+          <Typography variant="subtitle1">Author: {post.name}</Typography>
+          {post.file && (
+            <img
+              src={`http://localhost:5000/Images/${post.file}`}
+              alt={post.title}
+              className="card-img-top rounded-top"
+              style={{ width: "100%" }}
+            />
+          )}
+          <Typography variant="body2">{post.description}</Typography>
+
+          <CardActions>
+            <Button
+              component={Link}
+              to={`/editpost/${post._id}`}
+              color="primary"
+            >
+              <EditIcon />
+            </Button>
+            <Button onClick={handleDelete} color="error">
+              <DeleteIcon />
+            </Button>
+          </CardActions>
+
+          <hr />
+          <CommentSection post={post} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Grid>
   );
 };

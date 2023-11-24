@@ -1,8 +1,9 @@
+// post.jsx
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { userContext } from "../App";
-import CommentSection from "../components/postComment";
+import { userContext } from "../../App";
+import CommentSection from "../../components/postComment";
 import {
   Card,
   CardContent,

@@ -77,9 +77,11 @@ function CreatePost() {
                   placeholder="Post Description"
                   value={description}
                   onChange={(event) => setDesc(event.target.value)}
-                  multiline
+                  multiline // Set the multiline prop to true
                   minRows={10}
                   maxRows={10}
+                  maxLength={100}
+                  breaks
                   startDecorator={
                     <Box sx={{ display: "flex", gap: 0.5, flex: 1 }}>
                       <IconButton

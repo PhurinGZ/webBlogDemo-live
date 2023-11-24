@@ -7,7 +7,7 @@ import RegisterForm from "./components/RegisterForm";
 import Home from "./page/Home";
 import Navbar from "./components/navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Post from "./page/post";
+// import Post from "./page/post";
 import EditPost from "./page/EditPost";
 import UserProfile from "./page/userProfile";
 import EditProfile from "./page/editProfile";
@@ -40,7 +40,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/create" element={<CreatePost />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/post/:id" element={<Post />} />
+          {/* <Route path="/post/:id" element={<Post />} /> */}
           <Route path="/editpost/:id" element={<EditPost />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
