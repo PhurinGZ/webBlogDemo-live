@@ -2,15 +2,15 @@
 
 This project is a simple web blog demo built with Node.js, React.js, MongoDB, and Express.
 homepage
-![Alt text](image.png)
+![image](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/eb51f501-5ca9-4adc-b20a-36ce8a03f05b)
 modal post
-![Alt text](image-1.png)
+![image-1](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/9e8ed280-bf86-4002-aaea-40d76f5d01cc)
 Edit post
-![Alt text](image-2.png)
+![image-2](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/41fe12f6-665a-44eb-bf8d-ac1014fba125)
 profile
-![Alt text](image-3.png)
+![image-3](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/de8f7815-bb67-46ca-b7ea-0a2e40fb5b39)
 Edit profile (add avatar not avaliable)
-![Alt text](image-4.png)
+![image-4](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/53b19091-74c3-4e5e-bce9-828c0da412ff)
 
 ## Installation
 
