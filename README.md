@@ -1,16 +1,22 @@
 # Web Blog Demo
 
 This project is a simple web blog demo built with Node.js, React.js, MongoDB, and Express.
-homepage
-![image](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/eb51f501-5ca9-4adc-b20a-36ce8a03f05b)
-modal post
-![image-1](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/9e8ed280-bf86-4002-aaea-40d76f5d01cc)
-Edit post
-![image-2](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/41fe12f6-665a-44eb-bf8d-ac1014fba125)
-profile
-![image-3](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/de8f7815-bb67-46ca-b7ea-0a2e40fb5b39)
-Edit profile (add avatar not avaliable)
-![image-4](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/53b19091-74c3-4e5e-bce9-828c0da412ff)
+
+![Homepage](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/eb51f501-5ca9-4adc-b20a-36ce8a03f05b)
+
+## Screenshots
+
+### Modal Post
+![Modal Post](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/9e8ed280-bf86-4002-aaea-40d76f5d01cc)
+
+### Edit Post
+![Edit Post](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/41fe12f6-665a-44eb-bf8d-ac1014fba125)
+
+### Profile
+![Profile](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/de8f7815-bb67-46ca-b7ea-0a2e40fb5b39)
+
+### Edit Profile (Avatar not available)
+![Edit Profile](https://github.com/PhurinGZ/webBlogDemo-live/assets/120617446/53b19091-74c3-4e5e-bce9-828c0da412ff)
 
 ## Installation
 
