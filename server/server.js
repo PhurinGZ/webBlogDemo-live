@@ -182,30 +182,32 @@ app.delete("/deletepost/:id", async (req, res) => {
       return res.status(404).json({ message: "Post not found" });
     }
 
-    // Delete the post from the database
-    await postModel.findByIdAndDelete(req.params.id);
-
     // Get the filename from the post
     const filename = post.file;
 
-    // Delete the associated file
-    const filePath = path.join("Public/Images", filename);
-    fs.unlink(filePath, (err) => {
-      if (err) {
-        console.error("Error deleting file:", err);
-        res
-          .status(500)
-          .json({ message: "Error deleting file", error: err.message });
-      } else {
-        console.log("File deleted successfully");
-      }
-    });
+    // Delete the associated file if it exists
+    if (filename) {
+      const filePath = path.join("Public/Images", filename);
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.error("Error deleting file:", err);
+          res.status(500).json({ message: "Error deleting file", error: err.message });
+        } else {
+          console.log("File deleted successfully");
+        }
+      });
+    }
+
+    // Delete the post from the database
+    await postModel.findByIdAndDelete(req.params.id);
+
+    res.json({ message: "Success" });
   } catch (err) {
     console.error("Error deleting post:", err);
     res.status(500).json({ message: "Server error" });
   }
-  res.json({ message: "Success" });
 });
+
 
 app.use("/posts", postRoutes);
 app.use("/users", userRouter)

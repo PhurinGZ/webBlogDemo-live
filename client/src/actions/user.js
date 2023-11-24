@@ -1,5 +1,9 @@
 // actions/user.js
-import { FETCH_USER_PROFILE, USER_ERROR, UPDATE_USER_PROFILE } from "../constants/actionType.js";
+import {
+  FETCH_USER_PROFILE,
+  USER_ERROR,
+  UPDATE_USER_PROFILE,
+} from "../constants/actionType.js";
 import * as api from "../api/index.js";
 
 export const profile = (email) => async (dispatch) => {
@@ -19,10 +23,10 @@ export const profile = (email) => async (dispatch) => {
   }
 };
 
-export const updateProfile = (userData) => async (dispatch) => {
+export const updateProfile = (userData, id) => async (dispatch) => {
   try {
-    const { data } = await api.editProfile(userData);
-    dispatch({ type: UPDATE_USER_PROFILE, payload: data.profile });
+    const { data } = await api.editProfile(userData, id);
+    dispatch({ type: UPDATE_USER_PROFILE, payload: data });
     return data.profile;
   } catch (error) {
     console.error("Error updating user profile:", error);
@@ -30,3 +34,4 @@ export const updateProfile = (userData) => async (dispatch) => {
     throw error;
   }
 };
+

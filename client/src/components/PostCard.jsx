@@ -83,10 +83,10 @@ const PostCard = ({ post }) => {
             <></>
           )}
           <CardContent>
-            <Typography variant="h6" className="card-title-home">
+            <Typography variant="h6" >
               {post.title}
             </Typography>
-            <Typography variant="body2" className="card-text-home text">
+            <Typography variant="body2"  >
               {post.description.length <= 100
                 ? post.description
                 : post.description.substr(0, 100) + "..."}

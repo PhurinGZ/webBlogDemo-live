@@ -6,8 +6,8 @@ import { userProfile, editUserProfile } from '../controller/user.js';
 const router = express.Router();
 
 router.get('/profile/', userProfile);
-router.put('/editProfile', editUserProfile);
-
+router.put('/:id/editProfile', editUserProfile);
 
 export default router;
+
 

@@ -45,7 +45,7 @@ function Navbar() {
   };
 
   const handleScroll = () => {
-    if (window.scrollY > 10) {
+    if (window.scrollY > 1) {
       setIsFixed(true);
     } else {
       setIsFixed(false);
@@ -244,10 +244,10 @@ function Navbar() {
                 Github
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                I just want to put it in.
+                just want to put it in.
               </MenuItem>
               <MenuItem onClick={handleClose}>
-                I just want to put it in.
+                just want to put it in.
               </MenuItem>
             </Menu>
           </Box>
